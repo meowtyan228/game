@@ -19,24 +19,21 @@ public:
 		VERTICAL
 	};
 
-	struct Segment
-	{
-		SegmentState state = INTACT;
-	};
 
 	Ship(int length);
 	~Ship();
 	int getOrientation();
-	int switchOrientation();
+	void switchOrientation();
 	int getLength(); 
 	void changeState(int index);
-	Segment& getSegment(int index);
-	std::vector<Segment>& getSegments();
+	SegmentState& getSegment(int index);
+	std::vector<SegmentState>& getSegments();
 
 private:
-	int orientation;
+	Orientation orientation;
 	int length;
-	std::vector<Segment> segments;
+
+	std::vector<SegmentState> segments;
 };
 
 #endif

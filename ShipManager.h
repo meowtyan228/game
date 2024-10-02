@@ -9,7 +9,7 @@ class ShipManager
 public:
 	ShipManager(int n, std::initializer_list<int> list);
 	std::vector<Ship> getShipsVector();
-	void changeCoord(int x, int y)
+	//void changeCoord(int x, int y);
 	// void setShipsVector(std::initializer_list<int> list);
 	// Ship* getShips();
 	// void showShips();

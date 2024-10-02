@@ -60,20 +60,15 @@ int Field::placeShip(int x, int y, Ship& ship)
    if (x < 0 || y < 0 || x >= width || y >= height) return -1;
    if ((x + size > width)  && orientation == 0) return -1;
    if ((y + size > height) && orientation == 1) return -1;
+
    if (!field[y][x].isEmpty()) return -1;
    if (checkSurr(x, y, orientation, size)) return -1;
-   if (orientation == 0) {
-      for (int i = 0; i < size; i++) {
+   
+   for (int i = 0; i < size; i++) {
+      if (orientation == 0){ 
          field[y][x + i].setSegment(i, ship);
-         //ship.getSegment(field[y][x + i].getSegmant()).state = DAMAGED;
-         //std::cout <<  field[y][x + i].getSegmant()<<std::endl;
-         //std::cout <<ship.getSegment(field[y][x + i].getSegmant()).state<<std::endl;
       }
-   }
-   else {
-      for (int i = 0; i < size; i++) {
-         field[y + i][x].setSegment(i, ship);
-      }
+      else field[y + i][x].setSegment(i, ship);
    }
 
    return 0;
@@ -87,26 +82,37 @@ int Field::placeShip(int x, int y, Ship& ship)
 void Field::printField() {
    for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
+         Ship *ship = field[i][j].getShip();
+         int index = field[i][j].getSegmant();
          char symbol;
          switch (field[i][j].getStateEnum()) {
-         case CellState:: EMPTY:
+         case CellState::EMPTY:
             symbol = '.';
             break;
-         case CellState:: SHIP_HERE:
-            symbol = 'X';
-            break;
-         // case SegmentState:: DAMAGED:
-         //    symbol = 'd';
-         //    break;
-         // case SegmentState:: DESTROYED:
-         //    symbol = 'D';
-         //    break;
-         case CellState:: FOGOFWAR:
+         case CellState::FOGOFWAR:
             symbol = 'F';
             break;
+         case CellState::SHIP_HERE: {
+            switch (ship->getSegment(index)) {
+               case DAMAGED:
+                  symbol = 'D';
+                  break;
+               case INTACT:
+                  symbol = 'X';
+                  break;
+               case DESTROYED:
+                  symbol = 'Y';
+                  break;
+               default:
+                  break;
+               }
+               break;
          }
-         std::cout << symbol << " ";  // Выводим символ для клетки
+         default:
+            break;
+         }
+         std::cout << symbol << " ";
       }
-      std::cout << std::endl;  // Переход на новую строку после каждой строки поля
+      std::cout << std::endl;
    }
 }

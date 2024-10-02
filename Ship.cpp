@@ -13,8 +13,7 @@ Ship::~Ship()
 {
 }
 
-std::vector<Ship::Segment>& Ship::getSegments() {
-
+std::vector<SegmentState>& Ship::getSegments() {
     return segments;
 }
 
@@ -26,19 +25,17 @@ std::vector<Ship::Segment>& Ship::getSegments() {
 
 void Ship::changeState(int index){
 
-   if(segments[index].state == INTACT)
-      segments[index].state = DAMAGED;
-   else if(segments[index].state == DAMAGED)
-      segments[index].state = DESTROYED;
+   if(segments[index] == INTACT)
+      segments[index] = DAMAGED;
+   else if(segments[index] == DAMAGED)
+      segments[index] = DESTROYED;
 
 }
 
-Ship::Segment& Ship:: getSegment(int index) {
+SegmentState& Ship:: getSegment(int index) {
 
-   return segments.at(index);
+   return segments[index];
 }
-
-
 
 
 int Ship::getOrientation()
@@ -46,9 +43,17 @@ int Ship::getOrientation()
    return orientation;
 }
 
-int Ship::switchOrientation()
+void Ship::switchOrientation()
 {
-   return orientation = ~orientation;
+    if (orientation == VERTICAL)
+    {
+        orientation = HORIZONTAL;
+    }
+    else
+    {
+        orientation = VERTICAL;
+    }
+  
 }
 
 int Ship :: getLength(){

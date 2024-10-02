@@ -19,7 +19,7 @@ public:
 	bool isEmpty();
 	void setSegment(int n, Ship& ship);
 	int getSegmant();
-	void attackCell(Cell& cell);
+	void attackCell();
 	Ship* getShip();
 	CellState getStateEnum();
 
