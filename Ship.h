@@ -29,7 +29,7 @@ public:
 	int getOrientation();
 	int switchOrientation();
 	int getLength(); 
-	int changeState();
+	void changeState(int index);
 	Segment& getSegment(int index);
 	std::vector<Segment>& getSegments();
 

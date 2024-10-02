@@ -1,6 +1,17 @@
 #include "GameField.h"
 #include <stdexcept>
 #include <iostream>
+#include <vector>
+
+
+enum class ERROR
+{
+   OUT_OF_BOUNDS,           // Координаты вне границ поля
+   SIZE_TOO_LARGE,          // Размер корабля превышает границы поля
+   CELL_NOT_EMPTY,          // Ячейка уже занята
+   SURROUNDING_CHECK_FAILED // Проверка соседних ячеек не пройдена
+   
+};
 
 
 Field::Field(int n, int m)
@@ -10,6 +21,15 @@ Field::Field(int n, int m)
 
 Field::~Field()
 {
+}
+
+std::vector <std::vector<Cell>>&Field::getField(){
+   
+   return field;
+}
+
+Cell& Field::getCell(int x, int y) {
+   return field[y][x];
 }
 
 int Field::checkSurr(int x, int y, int orientation, int size) {
@@ -45,6 +65,9 @@ int Field::placeShip(int x, int y, Ship& ship)
    if (orientation == 0) {
       for (int i = 0; i < size; i++) {
          field[y][x + i].setSegment(i, ship);
+         //ship.getSegment(field[y][x + i].getSegmant()).state = DAMAGED;
+         //std::cout <<  field[y][x + i].getSegmant()<<std::endl;
+         //std::cout <<ship.getSegment(field[y][x + i].getSegmant()).state<<std::endl;
       }
    }
    else {
@@ -55,6 +78,12 @@ int Field::placeShip(int x, int y, Ship& ship)
 
    return 0;
 }
+
+// int Field::updateField(){
+
+// }
+
+
 void Field::printField() {
    for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -63,15 +92,15 @@ void Field::printField() {
          case CellState:: EMPTY:
             symbol = '.';
             break;
-         case CellState:: SHIP_INTACT:
+         case CellState:: SHIP_HERE:
             symbol = 'X';
             break;
-         case CellState:: SHIP_DAMAGED:
-            symbol = 'd';
-            break;
-         case CellState:: SHIP_DESTROYED:
-            symbol = 'D';
-            break;
+         // case SegmentState:: DAMAGED:
+         //    symbol = 'd';
+         //    break;
+         // case SegmentState:: DESTROYED:
+         //    symbol = 'D';
+         //    break;
          case CellState:: FOGOFWAR:
             symbol = 'F';
             break;

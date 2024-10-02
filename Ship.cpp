@@ -18,10 +18,27 @@ std::vector<Ship::Segment>& Ship::getSegments() {
     return segments;
 }
 
+
+
+// Ship::Segment& Ship::setSegment(int n, Cell& cell){
+
+// }
+
+void Ship::changeState(int index){
+
+   if(segments[index].state == INTACT)
+      segments[index].state = DAMAGED;
+   else if(segments[index].state == DAMAGED)
+      segments[index].state = DESTROYED;
+
+}
+
 Ship::Segment& Ship:: getSegment(int index) {
 
    return segments.at(index);
 }
+
+
 
 
 int Ship::getOrientation()

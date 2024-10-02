@@ -13,6 +13,10 @@ ShipManager::ShipManager(int num, std::initializer_list<int> list)
    }
 }
 
+void ShipManager::changeCoord(int x, int y){
+
+}
+
 std::vector<Ship> ShipManager::getShipsVector(){
    return ships;
 }

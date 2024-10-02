@@ -6,10 +6,8 @@
 enum class CellState
 {
 	EMPTY,
-	FOGOFWAR, 
-	SHIP_INTACT,
-	SHIP_DAMAGED,
-	SHIP_DESTROYED
+	FOGOFWAR,
+	SHIP_HERE
 };
 
 class Cell {
@@ -21,6 +19,7 @@ public:
 	bool isEmpty();
 	void setSegment(int n, Ship& ship);
 	int getSegmant();
+	void attackCell(Cell& cell);
 	Ship* getShip();
 	CellState getStateEnum();
 
@@ -30,4 +29,5 @@ private:
 	int numSegment;
 	Ship* ship;
 };
+
 #endif

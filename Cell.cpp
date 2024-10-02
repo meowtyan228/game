@@ -1,9 +1,9 @@
-
+#include "GameField.h"
 #include "Cell.h"
 #include <iostream>
 
 Cell::Cell()
-	:fogofWar(false), numSegment(0), ship(ship){}
+	:fogofWar(true), numSegment(0), ship(ship){}
 
 Cell :: ~Cell(){
 
@@ -39,8 +39,15 @@ Ship* Cell::getShip()
 	return ship;
 }
 
+
+void Cell::attackCell(Cell& cell){
+	int index = cell.getSegmant();
+	if(ship) ship->changeState(index);
+	cell.changeFog();
+}
+
 CellState Cell::getStateEnum(){
 	if (fogofWar) return CellState::FOGOFWAR;
 	if (!ship) return CellState::EMPTY;
-	else return CellState::SHIP_INTACT;
-}
+	else return CellState::SHIP_HERE;
+};
