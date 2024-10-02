@@ -83,15 +83,16 @@ void Field::printField() {
    for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
          Ship *ship = field[i][j].getShip();
+         CellState cellState = field[i][j].getStateEnum();
          int index = field[i][j].getSegmant();
          char symbol;
-         switch (field[i][j].getStateEnum()) {
+         switch (cellState) {
          case CellState::EMPTY:
             symbol = '.';
             break;
          case CellState::FOGOFWAR:
-            symbol = 'F';
-            break;
+            symbol = 'F'; // добавляем break
+            break; // Добавляем break здесь
          case CellState::SHIP_HERE: {
             switch (ship->getSegment(index)) {
                case DAMAGED:

@@ -18,11 +18,6 @@ std::vector<SegmentState>& Ship::getSegments() {
 }
 
 
-
-// Ship::Segment& Ship::setSegment(int n, Cell& cell){
-
-// }
-
 void Ship::changeState(int index){
 
    if(segments[index] == INTACT)

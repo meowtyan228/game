@@ -36,6 +36,7 @@ int main() {
     std::cin >> x1 >> y1;
     Cell& cell = field.getCell(x1, y1);
     cell.attackCell();
+    cell.attackCell();
     field.printField();
     // std::cout << cell.getShip()<<std::endl;
     // printSegment(ships[0].getSegments());
