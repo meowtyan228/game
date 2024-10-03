@@ -3,7 +3,7 @@
 
 #include "Ship.h"
 
-enum class CellState
+enum CellState
 {
 	EMPTY,
 	FOGOFWAR,
@@ -13,6 +13,7 @@ enum class CellState
 class Cell {
 
 public:
+
 	Cell();
 	~Cell();
 	bool changeFog();

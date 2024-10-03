@@ -13,6 +13,7 @@ enum SegmentState
 class Ship
 {
 public:
+
 	enum Orientation
 	{
 		HORIZONTAL,

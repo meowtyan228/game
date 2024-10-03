@@ -5,7 +5,7 @@
 
 
 Ship::Ship(int length)
-   :length(length), orientation(HORIZONTAL) {
+   :length(length), orientation(HORIZONTAL){
    segments.resize(length);
 }
 
@@ -40,14 +40,14 @@ int Ship::getOrientation()
 
 void Ship::switchOrientation()
 {
-    if (orientation == VERTICAL)
-    {
-        orientation = HORIZONTAL;
-    }
-    else
-    {
-        orientation = VERTICAL;
-    }
+   if (orientation == VERTICAL)
+   {
+      orientation = HORIZONTAL;
+   }
+   else
+   {
+      orientation = VERTICAL;
+   }
   
 }
 

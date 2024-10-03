@@ -1,9 +1,9 @@
-#include "GameField.h"
+#include "Field.h"
 #include "Cell.h"
 #include <iostream>
 
 Cell::Cell()
-	:fogofWar(true), numSegment(0){}
+	:fogofWar(false), numSegment(0){}
 
 Cell :: ~Cell(){
 
@@ -21,8 +21,7 @@ bool Cell::isEmpty()
 
 void Cell::setSegment(int n, Ship& ship)
 {
-	if (n >= ship.getLength() || n < 0)
-		throw std::out_of_range("Segment is out of ship");
+	if (n >= ship.getLength() || n < 0) throw std::out_of_range("Segment is out of ship");
 
 	numSegment = n;
 	this->ship = &ship;
