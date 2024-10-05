@@ -1,5 +1,4 @@
-#include "ShipManager.h"
-#include <iostream>
+#include "header.h"
 
 ShipManager::ShipManager(int num, std::initializer_list<int> list)
    :num(num)
@@ -16,7 +15,6 @@ ShipManager::ShipManager(int num, std::initializer_list<int> list)
    }
 }
 
-
-std::vector<Ship>ShipManager::getShipsVector(){
+std::vector<Ship>&ShipManager::getShipsVector(){
    return ships;
 }

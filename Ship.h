@@ -25,15 +25,13 @@ public:
 	~Ship();
 	int getOrientation();
 	void switchOrientation();
-	int getLength(); 
-	void changeState(int index);
-	SegmentState& getSegment(int index);
+	int getLength();
+	SegmentState* getSegment(int index);
 	std::vector<SegmentState>& getSegments();
 
 private:
 	Orientation orientation;
 	int length;
-
 	std::vector<SegmentState> segments;
 };
 

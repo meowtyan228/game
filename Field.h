@@ -25,13 +25,10 @@ public:
 	int checkSurr(int x, int y, int orientation, int size);
 	int placeShip(int x, int y, int orientation, Ship& ship);
 
-	std::vector <std::vector<Cell>>&getField();
+	//std::vector <std::vector<Cell>>&getField();
 	Cell& getCell(int x, int y);
-	Cell* getcellPointer();
 	void printField();
 	void copyField(const Field& field);
-
-	//void updateField();
 
 private:
 	int width; 

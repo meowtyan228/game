@@ -1,7 +1,4 @@
-#include "Ship.h"
-#include <iostream>
-#include <vector>
-
+#include "header.h"
 
 
 Ship::Ship(int length)
@@ -17,17 +14,10 @@ std::vector<SegmentState>& Ship::getSegments() {
     return segments;
 }
 
-void Ship::changeState(int index){
-
-   if(segments[index] == INTACT)
-      segments[index] = DAMAGED;
-   else if(segments[index] == DAMAGED)
-      segments[index] = DESTROYED;
-
-}
-
-SegmentState& Ship:: getSegment(int index) {
-
+SegmentState Ship::getSegment(int index) {
+   if (index < 0 || index >= length) {
+         throw std::out_of_range("Index out of range");
+   }
    return segments[index];
 }
 

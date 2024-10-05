@@ -8,7 +8,7 @@ class ShipManager
 
 public:
 	ShipManager(int n, std::initializer_list<int> list);
-	std::vector<Ship> getShipsVector();
+	std::vector<Ship>& getShipsVector();
 	
 private:
 

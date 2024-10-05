@@ -1,7 +1,4 @@
-#include "Game.h"
-#include <iostream>
-#include <limits>
-#include "Error.h"
+#include "header.h"
 using namespace std;
 
 Game::Game(){
@@ -23,7 +20,7 @@ void Game::setupGame(Field& field, std::vector<Ship>& ships) {
             cin >> x >> y >> orientation;
 
             if (cin.fail()) {
-                cout <<"\033[95mInvalid input, please enter numbers for x and y coordinates and for orientation!\033[0m" << endl;
+                cout <<"\033[95mInvalid input, please enter numbers for x, y coordinates and for orientation!\033[0m" << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<std::streamsize>::max(),'\n');
                 continue;
@@ -34,7 +31,7 @@ void Game::setupGame(Field& field, std::vector<Ship>& ships) {
                 cout << "\033[95mInvalid coordinates, out of bounds, try again!\033[0m" << endl;
                 break;
             case INCORRECT_ORIENTATION:
-                cout << "\033[95mInvalid coordinates, incorrect orientation, try again!\033[0m" << endl;
+                cout << "\033[95mIncorrect orientation, try again!\033[0m" << endl;
                 break;
             case SIZE_TOO_LARGE:
                 cout << "\033[95mInvalid coordinates, size too large, try again!\033[0m" << endl;
@@ -48,7 +45,7 @@ void Game::setupGame(Field& field, std::vector<Ship>& ships) {
             default:
                 placed = true;
                 cout << "\033[96mThe ship has been successfully deployed!\033[0m" << endl;
-                field.printField();
+                //field.printField();
                 break;
             }
 

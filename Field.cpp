@@ -1,8 +1,4 @@
-#include "Field.h"
-#include <stdexcept>
-#include <iostream>
-#include <vector>
-#include "Error.h"
+#include "header.h"
 
 Field::Field(int n, int m)
    : height(n), width(m){
@@ -45,7 +41,6 @@ Field::Field(Field&& field)
 
    field.width = 0;
    field.height = 0;
-   field.field.clear();
 }
 
 
@@ -71,15 +66,9 @@ Field& Field::operator=(const Field& field)
    return *this;
 }
 
-// std::vector <std::vector<Cell>>&Field::getField(){
-   
-//    return field;
-// }
-
-
 Cell& Field::getCell(int x, int y) {
 
-   if (x >= field.size() or y >= field[0].size()) throw "index out of range";
+   if (x >= field.size() or y >= field[0].size()) throw std::out_of_range ("Index out of range");
    return field[y][x];
 }
 
@@ -93,7 +82,7 @@ int Field::checkSurr(int x, int y, int orientation, int size) {
          if (dx == 0 && dy == 0) continue;
          int newY = y + dy;
          int newX = x + dx;
-         if (newY >= 0 && newY < height && newX >= 0 && newX < width) {
+         if (newY >= 0 and newY < height and newX >= 0 and newX < width) {
             if (!field[newY][newX].isEmpty()) {
                return 1;
             }
@@ -107,34 +96,30 @@ int Field::placeShip(int x, int y, int orientation, Ship& ship)
 {
    int orientation_default = ship.getOrientation();
    int size = ship.getLength();
-   if(orientation < 0 || orientation > 1) return INCORRECT_ORIENTATION;
+
+   if(orientation < 0 or orientation > 1) return INCORRECT_ORIENTATION;
    if(orientation != orientation_default) ship.switchOrientation();
 
-   if (x < 0 || y < 0 || x >= width || y >= height) return OUT_OF_BOUNDS;
-   if ((x + size > width)  && orientation == 0) return SIZE_TOO_LARGE;
-   if ((y + size > height) && orientation == 1) return SIZE_TOO_LARGE;
+   if (x < 0 or y < 0 or x >= width or y >= height) return OUT_OF_BOUNDS;
+   if ((x + size > width)  and orientation == 0) return SIZE_TOO_LARGE;
+   if ((y + size > height) and orientation == 1) return SIZE_TOO_LARGE;
 
    if (!field[y][x].isEmpty()) return CELL_NOT_EMPTY;
    if (checkSurr(x, y, orientation, size)) return SURROUNDING_CHECK_FAILED;
    
    for (int i = 0; i < size; i++) {
-      if (orientation == 0) field[y][x + i].setSegment(i, ship);
-      else field[y + i][x].setSegment(i, ship);
+      SegmentState* segmentPtr = ship.getSegment(i);
+      if (orientation == 0) field[y][x + i].setSegment(*segmentPtr);
+      else field[y + i][x].setSegment(*segmentPtr);
    }
 
    return 0;
 }
 
-// int Field::updateField(){
-
-// }
-
 void Field::printField() {
    for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-         Ship *ship = field[i][j].getShip();
-         CellState cellState = field[i][j].getStateEnum();
-         int index = field[i][j].getSegmant();
+         CellState cellState = field[i][j].getCellState();
          char symbol;
          switch (cellState) {
          case CellState::EMPTY:
@@ -144,7 +129,8 @@ void Field::printField() {
             symbol = 'F';
             break;
          case CellState::SHIP_HERE: {
-            switch (ship->getSegment(index)) {
+            SegmentState segmentState = field[i][j].getSegmentState();
+            switch (segmentState) {
                case DAMAGED:
                   symbol = 'D';
                   break;
@@ -165,5 +151,6 @@ void Field::printField() {
          std::cout << symbol << " ";
       }
       std::cout << std::endl;
+   
    }
 }

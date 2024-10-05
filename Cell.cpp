@@ -1,54 +1,52 @@
-#include "Field.h"
-#include "Cell.h"
-#include <iostream>
+#include "header.h"
 
 Cell::Cell()
-	:fogofWar(false), numSegment(0){}
+	:fogofWar(false){}
 
 Cell :: ~Cell(){
 
 };
 
-Cell* Cell :: getPoint() {
+Cell* Cell::getPoint() {
     return this;
-}
-
-bool Cell::changeFog()
-{
-	return fogofWar = !fogofWar;
 }
 
 bool Cell::isEmpty()
 {
-	return ship == nullptr;
+	return segmentState == nullptr;
 }
 
-void Cell::setSegment(int n, Ship& ship)
-{
-	if (n >= ship.getLength() || n < 0) throw std::out_of_range("Segment is out of ship");
-	numSegment = n;
-	this->ship = &ship;
-	return;
+void Cell::setSegment(SegmentState& segmentState){
+	this->segmentState = &segmentState;
+
+}
+
+SegmentState Cell::getSegmentState() {
+
+	return *segmentState;
 };
 
+void Cell::attackCell(){ 
+	
+	if(segmentState) { 
+		switch (*segmentState) { 
+  		case INTACT: 
+			*segmentState = DAMAGED; 
+			break; 
+  		case DAMAGED: 
+   			*segmentState = DESTROYED; 
+   			break; 
+  		default: 
+  			break; 
+		}
+	}
 
-int Cell::getSegmant() {
-
-	return numSegment;
-};
-
-Ship* Cell::getShip()
-{
-	return ship;
+	fogofWar = false; 
 }
 
-void Cell::attackCell(){
-	if(ship) ship->changeState(numSegment);
-	fogofWar = false;
-}
 
-CellState Cell::getStateEnum(){
+CellState Cell::getCellState(){
 	if (fogofWar) return CellState::FOGOFWAR;
-	if (!ship) return CellState::EMPTY;
+	if (!segmentState) return CellState::EMPTY;
 	else return CellState::SHIP_HERE;
 }

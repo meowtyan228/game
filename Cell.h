@@ -16,20 +16,16 @@ public:
 
 	Cell();
 	~Cell();
-	bool changeFog();
 	bool isEmpty();
-	void setSegment(int n, Ship& ship);
-	int getSegmant();
+	void setSegment(SegmentState& segmentState);
 	void attackCell();
-	Ship* getShip();
-	Cell* getPoint();
-	CellState getStateEnum();
+	CellState getCellState();
+	SegmentState getSegmentState();
 
 private:
 
 	bool fogofWar;
-	int numSegment;
-	Ship* ship;
+	SegmentState* segmentState;
 };
 
 #endif
