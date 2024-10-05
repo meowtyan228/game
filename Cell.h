@@ -22,6 +22,7 @@ public:
 	int getSegmant();
 	void attackCell();
 	Ship* getShip();
+	Cell* getPoint();
 	CellState getStateEnum();
 
 private:

@@ -17,7 +17,6 @@ std::vector<SegmentState>& Ship::getSegments() {
     return segments;
 }
 
-
 void Ship::changeState(int index){
 
    if(segments[index] == INTACT)
@@ -31,7 +30,6 @@ SegmentState& Ship:: getSegment(int index) {
 
    return segments[index];
 }
-
 
 int Ship::getOrientation()
 {

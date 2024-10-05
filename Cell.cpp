@@ -9,6 +9,10 @@ Cell :: ~Cell(){
 
 };
 
+Cell* Cell :: getPoint() {
+    return this;
+}
+
 bool Cell::changeFog()
 {
 	return fogofWar = !fogofWar;
@@ -22,11 +26,11 @@ bool Cell::isEmpty()
 void Cell::setSegment(int n, Ship& ship)
 {
 	if (n >= ship.getLength() || n < 0) throw std::out_of_range("Segment is out of ship");
-
 	numSegment = n;
 	this->ship = &ship;
 	return;
 };
+
 
 int Cell::getSegmant() {
 

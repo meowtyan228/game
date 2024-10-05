@@ -2,18 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <vector>
-
-
-enum ERROR
-{
-   OUT_OF_BOUNDS = 1 ,           // Координаты вне границ поля
-   SIZE_TOO_LARGE,          // Размер корабля превышает границы поля
-   CELL_NOT_EMPTY,          // Ячейка уже занята
-   SURROUNDING_CHECK_FAILED, // Проверка соседних ячеек не пройдена
-   INCORRECT_ORIENTATION
-   
-};
-
+#include "Error.h"
 
 Field::Field(int n, int m)
    : height(n), width(m){
@@ -24,12 +13,73 @@ Field::~Field()
 {
 }
 
+
+void Field ::copyField(const Field& field) {
+
+   width = field.width;
+   height = field.height;
+
+   this->field.resize(field.field.size());
+
+   for (int i = 0; i < field.field.size(); i++) {
+      this->field[i].resize(field.field.size());
+      for (int j = 0; j < field.field[i].size(); j++) {
+         this->field[i][j] = field.field[i][j];
+      }
+   }
+}
+
+Field::Field(const Field& field)
+{
+   copyField(field);
+}
+
+
+Field::Field(Field&& field)
+{
+
+   width = field.width;
+   height = field.height;
+
+   this->field = std::move(field.field);
+
+   field.width = 0;
+   field.height = 0;
+   field.field.clear();
+}
+
+
+
+Field& Field::operator=(Field&& field)
+{
+   width = field.width;
+   height = field.height;
+
+   if(this != &field){
+      this->field = std::move(field.field);
+   }
+
+   return *this;
+}
+
+Field& Field::operator=(const Field& field)
+{
+   if (this != &field) {
+      copyField(field);
+   }
+
+   return *this;
+}
+
 // std::vector <std::vector<Cell>>&Field::getField(){
    
 //    return field;
 // }
 
+
 Cell& Field::getCell(int x, int y) {
+
+   if (x >= field.size() or y >= field[0].size()) throw "index out of range";
    return field[y][x];
 }
 
